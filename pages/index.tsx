@@ -9,6 +9,7 @@ import Client from "../components/Client";
 import moment from "moment";
 import { IoIosClose, IoIosMenu } from "react-icons/io";
 import SidebarCard from "../components/SidebarCard";
+import { hotjar } from "react-hotjar";
 
 const Home: NextPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -22,6 +23,8 @@ const Home: NextPage = () => {
     (async () => {
       const result = await axios.get("api/intervals");
       setUserIntervals(result.data);
+
+      hotjar.initialize(2617961, 6);
     })();
   }, []);
 
