@@ -52,48 +52,46 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <div className={styles.header}>
-            <IoIosMenu
-              color="#FFF"
-              style={{ fontSize: 32 }}
-              className={styles.menuIcon}
-              onClick={() => setIsSidebarOpen(true)}
-            />
-            <div className={styles.logoContainer}>
-              <a href="https://eightsleep.com/">
-                <Image
-                  src="/eight-logo.svg"
-                  alt="Eight Sleep"
-                  width={72}
-                  height={64}
-                />
-              </a>
-            </div>
-            <div className={styles.tabs}>
-              {userIntervals[selectedDate] &&
-                userIntervals[selectedDate]
-                  // @ts-ignore
-                  .sort((a, b) => new Date(a?.ts) - new Date(b?.ts))
-                  .map((interval, index) => (
-                    <div
-                      key={index}
-                      className={styles.tab}
-                      onClick={() => setSelectedDate(index)}
-                      style={
-                        selectedDate === index
-                          ? { borderBottom: "2px solid #ffffff" }
-                          : {}
-                      }
-                    >
-                      <h3 className={styles.tabPrimary}>
-                        {interval && moment(interval.ts).format("DD")}
-                      </h3>
-                      <p className={styles.tabSecondary}>
-                        {interval && moment(interval.ts).format("MMM")}
-                      </p>
-                    </div>
-                  ))}
-            </div>
+          <IoIosMenu
+            color="#FFF"
+            style={{ fontSize: 32 }}
+            className={styles.menuIcon}
+            onClick={() => setIsSidebarOpen(true)}
+          />
+          <div className={styles.logoContainer}>
+            <a href="https://eightsleep.com/">
+              <Image
+                src="/eight-logo.svg"
+                alt="Eight Sleep"
+                width={72}
+                height={64}
+              />
+            </a>
+          </div>
+          <div className={styles.tabs}>
+            {userIntervals[selectedDate] &&
+              userIntervals[selectedDate]
+                // @ts-ignore
+                .sort((a, b) => new Date(a?.ts) - new Date(b?.ts))
+                .map((interval, index) => (
+                  <div
+                    key={index}
+                    className={styles.tab}
+                    onClick={() => setSelectedDate(index)}
+                    style={
+                      selectedDate === index
+                        ? { borderBottom: "2px solid #ffffff" }
+                        : {}
+                    }
+                  >
+                    <h3 className={styles.tabPrimary}>
+                      {interval && moment(interval.ts).format("DD")}
+                    </h3>
+                    <p className={styles.tabSecondary}>
+                      {interval && moment(interval.ts).format("MMM")}
+                    </p>
+                  </div>
+                ))}
           </div>
 
           <div className={styles.body}>
