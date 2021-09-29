@@ -267,6 +267,12 @@
 
 .chartCard h1 {
   margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.chartCard h1 span {
+  font-size: 1rem;
+  color: #ffffff85;
 }
 
 .sleepStageBarContainer {
@@ -326,7 +332,7 @@
     width: calc(100% - 24px);
   }
   .chartCard h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
   .barContainer {
     padding-top: 0;

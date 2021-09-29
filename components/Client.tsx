@@ -19,6 +19,11 @@ const Client: React.FC<ClientProps> = (props) => {
   const [timeInBed, setTimeInBed] = useState<string | null | undefined>(null);
   const [wakeupTime, setWakeupTime] = useState<moment.Moment | null>(null);
 
+  const findAverageTimeseries = (arr: (string | number)[]) => {
+    // @ts-ignore
+    return arr.reduce((a, b) => a + b) / arr.length;
+  };
+
   const findLowestHR = () => {
     const heartRates = props.interval?.timeseries.heartRate
       .map((a) => a.filter((i) => typeof i === "number"))
@@ -91,6 +96,9 @@ const Client: React.FC<ClientProps> = (props) => {
     calculateWakeupTime();
   }, [props.selectedDate, props.selectedUser]); // eslint-disable-line
 
+  console.log("array: ", props.interval?.timeseries.heartRate);
+  // array.reduce((a, b) => a + b) / array.length;
+
   return (
     <>
       {props.interval && (
@@ -98,7 +106,7 @@ const Client: React.FC<ClientProps> = (props) => {
           <div className={styles.grid}>
             <div className={styles.cardRow}>
               <Card title="Sleep Score" score={props.interval?.score} />
-              <Card title="Lowest HR" score={lowestHR} />
+              <Card title="Lowest HR" score={`${lowestHR} bpm`} />
             </div>
             <div className={styles.cardRow}>
               <Card title="Total Sleep" score={totalSleep} />
@@ -131,11 +139,6 @@ const Client: React.FC<ClientProps> = (props) => {
                   bgColor="#85C9FA"
                 />
                 <Bar
-                  title={`REM ${calculateStageLength("rem")}`}
-                  width={`calc(${calculateStagePercent("rem")}%)`}
-                  bgColor="#568BBD"
-                />
-                <Bar
                   title={`Deep ${calculateStageLength("deep")}`}
                   width={`calc(${calculateStagePercent("deep")}%)`}
                   bgColor="#2C4677"
@@ -150,6 +153,10 @@ const Client: React.FC<ClientProps> = (props) => {
             bedtime={props.interval.ts}
             wakeupTime={wakeupTime}
             data={props.interval.timeseries.heartRate}
+            average={findAverageTimeseries(
+              props.interval.timeseries.heartRate.map((a) => a[1])
+            )}
+            unit="bpm"
           />
           <ChartCard
             fill
@@ -157,6 +164,10 @@ const Client: React.FC<ClientProps> = (props) => {
             bedtime={props.interval.ts}
             wakeupTime={wakeupTime}
             data={props.interval.timeseries.respiratoryRate}
+            average={findAverageTimeseries(
+              props.interval.timeseries.respiratoryRate.map((a) => a[1])
+            )}
+            unit="bpm"
           />
           <ChartCard
             fill
@@ -164,6 +175,10 @@ const Client: React.FC<ClientProps> = (props) => {
             bedtime={props.interval.ts}
             wakeupTime={wakeupTime}
             data={props.interval.timeseries.tempRoomC}
+            average={findAverageTimeseries(
+              props.interval.timeseries.tempRoomC.map((a) => a[1])
+            )}
+            unit="°F"
           />
           <ChartCard
             fill
@@ -171,6 +186,10 @@ const Client: React.FC<ClientProps> = (props) => {
             bedtime={props.interval.ts}
             wakeupTime={wakeupTime}
             data={props.interval.timeseries.tempBedC}
+            average={findAverageTimeseries(
+              props.interval.timeseries.tempBedC.map((a) => a[1])
+            )}
+            unit="°F"
           />
         </>
       )}

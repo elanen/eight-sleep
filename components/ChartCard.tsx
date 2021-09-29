@@ -8,11 +8,17 @@ interface ChartCardProps {
   wakeupTime: moment.Moment | null;
   data: (string | number)[][];
   fill: boolean;
+  average: number;
+  unit: string;
 }
 
 const ChartCard: React.FC<ChartCardProps> = (props) => (
   <div className={styles.chartCard}>
     <h1>{props.title}</h1>
+    <h1 style={{ marginBottom: 24 }}>
+      {`${Math.round(props.average)} `}
+      <span>{`${props.unit} average`}</span>
+    </h1>
     <div className={styles.chart}>
       <Line
         data={{

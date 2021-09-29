@@ -65,13 +65,6 @@ const SleepStages: React.FC<SleepStageProps> = (props) => {
               className={styles.sleepStageBar}
               style={{
                 backgroundColor:
-                  stage.stage === "rem" ? "#568BBD" : "#568BBD00",
-              }}
-            />
-            <div
-              className={styles.sleepStageBar}
-              style={{
-                backgroundColor:
                   stage.stage === "deep" ? "#2C4677" : "#2C467700",
               }}
             />
